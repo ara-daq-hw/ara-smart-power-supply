@@ -3,6 +3,8 @@
 \documentclass[english]{article}
 \usepackage[T1]{fontenc}
 \usepackage[latin9]{inputenc}
+\usepackage{courier}
+\usepackage{gensymb}
 
 \makeatletter
 
@@ -42,7 +44,7 @@ ports.
 \item Port 25: SBC serial port
 \item Port 26: ASPS-DAQ Heater command/monitoring interface
 \end{itemize}
-To access any of these ports simply telnet to them.
+To access any of these ports simply telnet to them. For example: \texttt{telnet 128.xxx.xxx.xxx 24}
 
 Note, however, that many Telnet clients automatically echo normally,
 and so therefore some care is needed to avoid any hassles. In addition,
@@ -71,9 +73,9 @@ the connection somehow) can be forcibly disconnected.
 
 The heater section of ASPS-DAQ serves as a temperature watchdog. At
 power on, it holds off activating the remainder of the system until
-the temperature has reached a specified target (typically $-40\,\deg\mbox{C}$)
+the temperature has reached a specified target (typically $-40\,\degree \mbox{C}$)
 via the use of an onboard adjustable heater. It is the only section
-of the ASPS-DAQ board which is required to operate to $-55\,\deg\mbox{C}$.
+of the ASPS-DAQ board which is required to operate to $-55\,\degree \mbox{C}$.
 
 Communication with the ASPS-DAQ heater is done via a serial connection
 through the main ASPS-DAQ microcontroller, which presents it on a
@@ -87,7 +89,7 @@ All communication is done via JSON packets.
 There is \emph{also} a secondary serial port interface to the main
 ASPS-DAQ microcontroller, used for debugging and bootstrap reprogramming.
 This is also presented on a specified TCP port. Entering the device
-into bootstrap mode is done via the Web interface.
+into bootstrap mode is done via the Web interface at http://ip.address.here/bsl.html.
 
 \subsubsection{LED behavior}
 
