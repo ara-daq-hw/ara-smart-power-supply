@@ -294,7 +294,7 @@ The commands available are, in alphabetical order:
 		\item The currents being consumed by the four outputs (same labeling as for command \texttt{control}, so see there for what each means.
 		\item What channels are currently on (meaning they are being allowed to supply current).
 		\item What channels are currently in fault. This means they were either turned off with the \texttt{control} command, or they tripped their electronic fuses by drawing too much power.
-		\item The temperature of three on board sensors. 0 is the temperature reported by the thermometer internal to the TIVA uC, 1 is the temperature of the die of one of the onboard MIC280s, and should be taken as a proxy for the board temperature, and 3 is the temperature of the thermistor taped to the wall of the DAQ box. In this example in figure \ref{fig:adaq_status}, that thermistor is disconnected and therefore reporting the error value of 127.
+		\item The temperature of three on board sensors.
 		\end{itemize}
 	\end{itemize}
 \end{itemize}

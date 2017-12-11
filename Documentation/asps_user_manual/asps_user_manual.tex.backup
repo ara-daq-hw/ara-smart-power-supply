@@ -198,13 +198,6 @@ One can connect to it with an serial port client, such as TeraTerm, PuTTY, etc.
 On a Linux machine, a common way to so would be to use screen,
 e.g. \texttt{sudo screen /dev/ttyUSB0 38400}.
 
-\begin{figure}[h]
-\centering
-\includegraphics[width=.8\textwidth]{figures/adaq_screen_shot.png}
-\caption{A picture of the ADAQ USB interface in a terminal.}
-\label{fig:adaq_interface}
-\end{figure}
-
 After logging in, you will be presented with a user interface as in 
 figure \ref{fig:adaq_interface}, with the prompt \texttt{ADAQ>}.
 At this point you can enter a variety of commands
@@ -215,97 +208,26 @@ The commands available are, in alphabetical order:
 \item \texttt{bridge}
 	\begin{itemize}
 	\item This connects the main serial console to one of the four serial servers hosted by the ASPS-DAQ.
-	\item Execute by running ``\texttt{bridge x}'' where x = 0 for heater monitor, 1 for ASPS-power, 2 for SBC, 3 for heater command interface.
+	\item Execute by running ``\texttt{bridge x}" where x = 0 for heater monitor, 1 for ASPS-power, 2 for SBC, 3 for heater command interface.
 	\item Example: to connect to the ASPS power serial interface, type \texttt{bridge 1}.
-	\item To exit, enter \texttt{+++} (three ``plus'' symbols). Interface will close and return you to the \texttt{ADAQ>} prompt. No return character (like $\backslash$\texttt{n} etc.) needed.
+	\item To exit, enter \texttt{+++} (three ``plus'' symbols). Interface will close and return you to the \texttt{ADAQ>} prompt. No return character needed.
 	\end{itemize}
 \item \texttt{bsl}
 	\begin{itemize}
-	\item This will reboot either the heater microcontroller or the ASPS-PWR microcontroller in bootstrap-loader (BSL) mode.
-	\item Execute by running ``\texttt{bsl x y}'' where x = 0 or 1 for do not/do put the heater into BSL mode, and y= 0 or 1 for do not/ do put the ASPS-PWR uC into BSL mode.
-	\item Example: to rebot the ASPS-PWR microcontroller , but not the heater uC microcontroller, into BSL mode, type \texttt{bsl 0 1}.
-	\end{itemize}
-\item \texttt{control}
-	\begin{itemize}
-	\item This will turn off the various outputs to the board.
-	\item Execute by running ``\texttt{control x y}'' where x = 0, 1, 2, 3, or 4 to select the output to control, and y = 0 or 1 for ''off`` and ''on`` respectively.
-		\begin{itemize}
-		\item 0 corresponds to AUX2 (typically unused)
-		\item 1 corresponds to the DSPM
-		\item 2 corresponds to AUX1 (typically the IceCalDuo)
-		\item 3 corresponds to ARAFE
-		\item 4 corresponds to the Fiber Switch
-		\end{itemize}
-	\item Example: to reboot the ASPS-PWR microcontroller , but not the heater microcontroller , into BSL mode, type \texttt{bsl 0 1}.
-	\end{itemize}
-\item \texttt{getmac}
-	\begin{itemize}
-	\item This will report the mac address of the TIVA microcontroller on the ASPS-DAQ.
-	\item Execute by running ``\texttt{getmac}'' (no arguments).
-	\end{itemize}
-\item \texttt{loop}
-	\begin{itemize}
-	\item This launches the TIVA microcontroller into an artificial infinite loop. It is a debugging tool used to test whether or not the watchdog is able to catch a runaway process.
-	\item Execute by running ``\texttt{loop}'' (no arguments).
-	\item Should be followed by a watchdog reset signal.
-	\end{itemize}
-\item \texttt{identify}
-	\begin{itemize}
-	\item Prints the ASPS-DAQ board id to the screen.
-	\item Execute by running ``\texttt{identify}'' (no arguments).
-	\item Name of the board should print to screen, e.g. \texttt{ADAQF003}. ``F'' designates the revision of the board (revF) and 003 designates the individual serial number within that revision series. There are only two active revision series of the ASPS-DAQ, revF and revG.
-	\end{itemize}
-\item \texttt{ip}
-	\begin{itemize}
-	\item Requests the ASPS-DAQ to print its IP address to the console.
-	\item Execute by running ``\texttt{ip}'' (no arguments).
-	\item If the board has a mac address, and it is connected to the internet by a local DHCP server, it will report its IP address.
-	\end{itemize}
-\item \texttt{reboot}
-	\begin{itemize}
-	\item Reboots the ASPS-DAQ TIVA microcontroller.
-	\item Execute by running ``\texttt{reboot}'' (no arguments).
-	\end{itemize}
-\item \texttt{savemac}
-	\begin{itemize}
-	\item \textbf{\underline{WARNING WARNING WARNING}, READ ME BEFORE USING THIS COMMAND: This command can (basically) only be run once in the lifetime of the TIVA microcontroller!! Do not use unless you know what you're doing!}
-	\item Stores the mac address entered with \texttt{setmac} to permanent memory.
-	\item Execute by running ``\texttt{savemac}'' (no arguments).
-	\end{itemize}
-\item \texttt{setid}
-	\begin{itemize}
-	\item Sets the id of the ASPS-DAQ microcontroller. This is the id that is reported by the command \texttt{identify}.
-	\item Execute by running ``\texttt{setid ADAQ$\alpha$\#\#\#}'', where $\alpha$ is the board revision letter (e.g. A, B, etc.) and \#\#\# is the three-digit serial number of the board within that revision line. It will only take eight alpha-numeric characters as an argument.
-	\item Example: to set a microcontrollers id to ADAQG006 type \texttt{setid ADAQG006}.
-	\end{itemize}
-\item \texttt{setmac}
-	\begin{itemize}
-	\item Sets the mac address of the ASPS-DAQ microcontroller. This is the mac address that is reported by the command \texttt{getmac} and saved by the command \texttt{savemac}.
-	\item Execute by running ``\texttt{setmac \#\# \#\# \#\# \#\# \#\# \#\#}'', \#\# are the bytes of the mac address, which are typically visualized as \#\#:\#\#:\#\#:\#\#:\#\#:\#\#.
-	\item Example: to set a microcontrollers mac address to FC:C2:3D:0D:A8:7C type \texttt{setmac FC C2 3D 0D A8 7C}.
-	\item This command must be followed by \texttt{savemac} to take effect permanently. HOWEVER, YOU SHOULD READ THE SECTION ON \texttt{savemac} BEFORE PROCEEDING!!!
-	\end{itemize}
-\item \texttt{status}
-	\begin{itemize}
-	\item Reports various housekeeping information on the board (e.g., temperatures and the like), print out like figure \ref{fig:adaq_status}.
-	\item Execute by running ``\texttt{status}'' (no arguments).
-	\item The various components are:
-		\begin{itemize}
-		\item The currents being consumed by the four outputs (same labeling as for command \texttt{control}, so see there for what each means.
-		\item What channels are currently on (meaning they are being allowed to supply current).
-		\item What channels are currently in fault. This means they were either turned off with the \texttt{control} command, or they tripped their electronic fuses by drawing too much power.
-		\item The temperature of three on board sensors. 0 is the temperature reported by the thermometer internal to the TIVA uC, 1 is the temperature of the die of one of the onboard MIC280s, and should be taken as a proxy for the board temperature, and 3 is the temperature of the thermistor taped to the wall of the DAQ box. In this example in figure \ref{fig:adaq_status}, that thermistor is disconnected and therefore reporting the error value of 127.
-		\end{itemize}
+	\item This connects the main serial console to one of the four serial servers hosted by the ASPS-DAQ.
+	\item Execute by running ``\texttt{bridge x}" where x = 0 for heater monitor, 1 for ASPS-power, 2 for SBC, 3 for heater command interface.
+	\item Example: to connect to the ASPS power serial interface, type \texttt{bridge 1}.
+	\item To exit, enter \texttt{+++} (three ``plus'' symbols). Interface will close and return you to the \texttt{ADAQ>} prompt. No return character needed.
 	\end{itemize}
 \end{itemize}
 
+
+
 \begin{figure}[h]
 \centering
-\includegraphics[width=.8\textwidth]{figures/adaq_status.png}
+\includegraphics[width=.8\textwidth]{figures/adaq_screen_shot.png}
 \caption{A picture of the ADAQ USB interface in a terminal.}
-\label{fig:adaq_status}
+\label{fig:adaq_interface}
 \end{figure}
-
-
 
 \end{document}
